@@ -1,0 +1,17 @@
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\bin\Debug\KhoHang.exe.config
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\bin\Debug\KhoHang.exe
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\bin\Debug\KhoHang.pdb
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.csproj.AssemblyReference.cache
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.frmMain.resources
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.Properties.Resources.resources
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.csproj.GenerateResource.cache
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.csproj.CoreCompileInputs.cache
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.exe
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.pdb
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.frmCustomer.resources
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.frmInvoice.resources
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.frmListItem.resources
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.frmMaterial.resources
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.frmStaff.resources
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.csproj.ResolveComReference.cache
+D:\FPT_University\Semester_5\PRN211\Assignment2\KhoHang\KhoHang\obj\Debug\KhoHang.frmTimHDBan.resources
