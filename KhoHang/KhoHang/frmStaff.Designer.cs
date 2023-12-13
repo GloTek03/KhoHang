@@ -138,6 +138,7 @@
             this.txtStaffID.Name = "txtStaffID";
             this.txtStaffID.Size = new System.Drawing.Size(224, 22);
             this.txtStaffID.TabIndex = 3;
+            this.txtStaffID.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtStaffID_KeyUp);
             // 
             // txtStaffName
             // 
@@ -145,6 +146,7 @@
             this.txtStaffName.Name = "txtStaffName";
             this.txtStaffName.Size = new System.Drawing.Size(224, 22);
             this.txtStaffName.TabIndex = 3;
+            this.txtStaffName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtStaffName_KeyUp);
             // 
             // txtAddress
             // 
@@ -152,6 +154,7 @@
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(239, 22);
             this.txtAddress.TabIndex = 3;
+            this.txtAddress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtAddress_KeyUp);
             // 
             // rbtnMale
             // 

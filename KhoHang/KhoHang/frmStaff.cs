@@ -134,15 +134,27 @@ namespace KhoHang
                 gt = "Nữ";
             else
                 gt = "Khác";
-            sql = "SELECT MaNhanVien FROM tblNhanVien WHERE MaNhanVien=N'" + txtStaffID.Text.Trim() + "'";
+            sql = "SELECT MaNhanVien FROM tblNhanVien WHERE MaNhanVien=N'" +
+                txtStaffID.Text.Trim() + "'";
             if (Function.CheckKey(sql))
             {
-                MessageBox.Show("Mã nhân viên này đã có, bạn phải nhập mã khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mã nhân viên này đã có, bạn phải nhập mã khác", 
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtStaffID.Focus();
                 txtStaffID.Text = "";
                 return;
             }
-            sql = "INSERT INTO tblNhanVien(MaNhanVien,TenNhanVien,GioiTinh, DiaChi,DienThoai, NgaySinh) VALUES (N'" + txtStaffID.Text.Trim() + "',N'" + txtStaffName.Text.Trim() + "',N'" + gt + "',N'" + txtAddress.Text.Trim() + "','" + mtxtPhone.Text + "','" + Function.ConvertDateTime(txtDob.Text) + "')";
+            if (Function.IsDate(txtDob.Value.ToString("dd/MM/yyyy")))
+            {
+                MessageBox.Show(txtDob.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+            }
+            sql = "INSERT INTO tblNhanVien(MaNhanVien,TenNhanVien,GioiTinh, DiaChi,DienThoai, NgaySinh) " +
+                "VALUES (N'" + txtStaffID.Text.Trim() + 
+                "',N'" + txtStaffName.Text.Trim() + 
+                "',N'" + gt + 
+                "',N'" + txtAddress.Text.Trim() + 
+                "','" + mtxtPhone.Text + 
+                "','" + txtDob.Value.ToString("yyyy-MM-dd HH:mm:ss") + "')";
             Function.RunSQL(sql);
             LoadDgvStaff();
             ResetValues();
@@ -169,7 +181,8 @@ namespace KhoHang
             }
             if (MessageBox.Show("Bạn có muốn xoá bản ghi này không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                sql = "DELETE tblNhanVien WHERE MaNhanVien=N'" + txtStaffID.Text.Trim() + "'";
+                sql = "DELETE tblNhanVien WHERE MaNhanVien=N'" + 
+                    txtStaffID.Text.Trim() + "'";
                 Function.RunSQL(sql);
                 LoadDgvStaff();
                 ResetValues();
@@ -195,19 +208,19 @@ namespace KhoHang
                 MessageBox.Show("Không còn dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            if (txtStaffID.Text.Length == 0)
+            if (txtStaffID.Text.Trim() == "")
             {
                 MessageBox.Show("Bạn phải nhập mã nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtStaffID.Focus();
                 return;
             }
-            if (txtStaffName.Text.Length == 0)
+            if (txtStaffName.Text.Trim() == "")
             {
                 MessageBox.Show("Bạn phải nhập tên nhân viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtStaffName.Focus();
                 return;
             }
-            if (txtAddress.Text.Length == 0)
+            if (txtAddress.Text.Trim() == "")
             {
                 MessageBox.Show("Bạn phải nhập địa chỉ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtAddress.Focus();
@@ -225,8 +238,12 @@ namespace KhoHang
                 gt = "Nữ";
             else
                 gt = "Khác";
-            sql = "UPDATE tblNhanVien SET TenNhanVien=N'" + txtStaffName.Text.ToString() + "',GioiTinh=N'" + gt + "',DiaChi=N'" +
-                 txtAddress.Text.ToString() + "',DienThoai='" + mtxtPhone.Text.ToString() +
+            sql = "UPDATE tblNhanVien SET" +
+                " TenNhanVien=N'" + txtStaffName.Text.Trim().ToString() + 
+                "',GioiTinh=N'" + gt + 
+                "',DiaChi=N'" + txtAddress.Text.Trim().ToString() + 
+                "',DienThoai='" + mtxtPhone.Text.ToString() +
+                "',NgaySinh='" + txtDob.Value.ToString("yyyy-MM-dd HH:mm:ss") +
                 "' WHERE MaNhanVien=N'" + txtStaffID.Text + "'";
             Function.RunSQL(sql);
             LoadDgvStaff();
@@ -238,5 +255,24 @@ namespace KhoHang
         {
             this.Close();
         }
+
+        private void txtStaffID_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SendKeys.Send("{TAB}");
+        }
+
+        private void txtStaffName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SendKeys.Send("{TAB}");
+        }
+
+        private void txtAddress_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SendKeys.Send("{TAB}");
+        }
     }
+    
 }

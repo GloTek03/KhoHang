@@ -70,8 +70,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.cboMaHDBan = new System.Windows.Forms.ComboBox();
             this.btnTimKiem = new System.Windows.Forms.Button();
-            this.txtNgayBan = new System.Windows.Forms.TextBox();
-            this.btnNgay = new System.Windows.Forms.Button();
+            this.dtpNgayBan = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHDBanHang)).BeginInit();
@@ -90,14 +89,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnNgay);
+            this.groupBox1.Controls.Add(this.dtpNgayBan);
             this.groupBox1.Controls.Add(this.cboMaKhach);
             this.groupBox1.Controls.Add(this.cboMaNhanVien);
             this.groupBox1.Controls.Add(this.txtDienThoai);
             this.groupBox1.Controls.Add(this.txtDiaChi);
             this.groupBox1.Controls.Add(this.txtTenKhach);
             this.groupBox1.Controls.Add(this.txtTenNhanVien);
-            this.groupBox1.Controls.Add(this.txtNgayBan);
             this.groupBox1.Controls.Add(this.txtMaHDBan);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
@@ -499,22 +497,12 @@
             this.btnTimKiem.UseVisualStyleBackColor = true;
             this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
-            // txtNgayBan
+            // dtpNgayBan
             // 
-            this.txtNgayBan.Location = new System.Drawing.Point(122, 44);
-            this.txtNgayBan.Name = "txtNgayBan";
-            this.txtNgayBan.Size = new System.Drawing.Size(149, 22);
-            this.txtNgayBan.TabIndex = 1;
-            // 
-            // btnNgay
-            // 
-            this.btnNgay.Location = new System.Drawing.Point(278, 44);
-            this.btnNgay.Name = "btnNgay";
-            this.btnNgay.Size = new System.Drawing.Size(54, 23);
-            this.btnNgay.TabIndex = 3;
-            this.btnNgay.Text = "...";
-            this.btnNgay.UseVisualStyleBackColor = true;
-            this.btnNgay.Click += new System.EventHandler(this.btnNgay_Click);
+            this.dtpNgayBan.Location = new System.Drawing.Point(122, 45);
+            this.dtpNgayBan.Name = "dtpNgayBan";
+            this.dtpNgayBan.Size = new System.Drawing.Size(210, 22);
+            this.dtpNgayBan.TabIndex = 3;
             // 
             // frmInvoice
             // 
@@ -587,7 +575,6 @@
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtTongTien;
-        private System.Windows.Forms.Button btnNgay;
-        private System.Windows.Forms.TextBox txtNgayBan;
+        private System.Windows.Forms.DateTimePicker dtpNgayBan;
     }
 }
