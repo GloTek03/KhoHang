@@ -51,7 +51,7 @@ namespace KhoHang
             txtThanhTien.Text = "0";
             Function.FillCombo("SELECT MaKhach, TenKhach FROM tblKhach", cboMaKhach, "MaKhach", "MaKhach");
             cboMaKhach.SelectedIndex = -1;
-            Function.FillCombo("SELECT MaNhanVien, TenNhanVien FROM tblNhanVien", cboMaNhanVien, "MaNhanVien", "TenKhach");
+            Function.FillCombo("SELECT MaNhanVien, TenNhanVien FROM tblNhanVien", cboMaNhanVien, "MaNhanVien", "MaNhanVien");
             cboMaNhanVien.SelectedIndex = -1;
             Function.FillCombo("SELECT MaHang, TenHang FROM tblHang", cboMaHang, "MaHang", "MaHang");
             cboMaHang.SelectedIndex = -1;
@@ -67,7 +67,10 @@ namespace KhoHang
         private void LoadDataGridView()
         {
             string sql;
-            sql = "SELECT a.MaHang, b.TenHang, a.SoLuong, b.DonGiaBan, a.GiamGia,a.ThanhTien FROM tblChiTietHDBan AS a, tblHang AS b WHERE a.MaHDBan = N'" + txtMaHDBan.Text + "' AND a.MaHang=b.MaHang";
+            sql = "SELECT a.MaHang, b.TenHang, a.SoLuong, b.DonGiaBan, a.GiamGia,a.ThanhTien " +
+                "FROM tblChiTietHDBan AS a " +
+                "join tblHang AS b on a.MaHang=b.MaHang " +
+                "where a.MaHDBan = N'" + txtMaHDBan.Text + "'";
             tblCTHDB = Function.GetDataToTable(sql);
             dgvHDBanHang.DataSource = tblCTHDB;
             dgvHDBanHang.Columns[0].HeaderText = "Mã hàng";
@@ -89,19 +92,19 @@ namespace KhoHang
         {
             string str;
             str = "SELECT NgayBan FROM tblHDBan WHERE MaHDBan = N'" + txtMaHDBan.Text + "'";
-            txtNgayBan.Text = Function.ConvertDateTime(Function.GetFieldValues(str));
+            dtpNgayBan.Value = DateTime.Parse(Function.GetFieldValues(str));
             str = "SELECT MaNhanVien FROM tblHDBan WHERE MaHDBan = N'" + txtMaHDBan.Text + "'";
             cboMaNhanVien.Text = Function.GetFieldValues(str);
             str = "SELECT MaKhach FROM tblHDBan WHERE MaHDBan = N'" + txtMaHDBan.Text + "'";
             cboMaKhach.Text = Function.GetFieldValues(str);
             str = "SELECT TongTien FROM tblHDBan WHERE MaHDBan = N'" + txtMaHDBan.Text + "'";
             txtThanhTien.Text = Function.GetFieldValues(str);
-            lblBangChu.Text = "Bằng chữ: " + Function.ChuyenSoSangChu(txtThanhTien.Text);
+            lblBangChu.Text = "Bằng chữ: " + Function.ChuyenSoSangChuoi(Double.Parse(txtThanhTien.Text));
         }
         private void ResetValues()
         {
             txtMaHDBan.Text = "";
-            txtNgayBan.Text = DateTime.Now.ToShortDateString();
+            dtpNgayBan.Value = DateTime.Now;
             cboMaNhanVien.Text = "";
             cboMaKhach.Text = "";
             txtThanhTien.Text = "0";
@@ -121,10 +124,10 @@ namespace KhoHang
             {
                 // Mã hóa đơn chưa có, tiến hành lưu các thông tin chung
                 // Mã HDBan được sinh tự động do đó không có trường hợp trùng khóa
-                if (txtNgayBan.Text.Length == 0)
+                if (dtpNgayBan.Value.ToString().Length == 0)
                 {
                     MessageBox.Show("Bạn phải nhập ngày bán", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    txtNgayBan.Focus();
+                    dtpNgayBan.Focus();
                     return;
                 }
                 if (cboMaNhanVien.Text.Length == 0)
@@ -140,7 +143,7 @@ namespace KhoHang
                     return;
                 }
                 sql = "INSERT INTO tblHDBan(MaHDBan, NgayBan, MaNhanVien, MaKhach, TongTien) VALUES (N'" + txtMaHDBan.Text.Trim() + "','" +
-                        Function.ConvertDateTime(txtNgayBan.Text.Trim()) + "',N'" + cboMaNhanVien.SelectedValue + "',N'" +
+                        dtpNgayBan.Value.ToString("yyyy-mm-dd HH:mm:ss") + "',N'" + cboMaNhanVien.SelectedValue + "',N'" +
                         cboMaKhach.SelectedValue + "'," + txtTongTien.Text + ")";
                 Function.RunSQL(sql);
             }
@@ -181,7 +184,13 @@ namespace KhoHang
                 txtSoLuong.Focus();
                 return;
             }
-            sql = "INSERT INTO tblChiTietHDBan(MaHDBan,MaHang,SoLuong,DonGia, GiamGia,ThanhTien) VALUES(N'" + txtMaHDBan.Text.Trim() + "',N'" + cboMaHang.SelectedValue + "'," + txtSoLuong.Text + "," + txtDonGiaBan.Text + "," + txtGiamGia.Text + "," + txtThanhTien.Text + ")";
+            sql = "INSERT INTO tblChiTietHDBan(MaHDBan,MaHang,SoLuong,DonGia, GiamGia,ThanhTien) VALUES(N'" 
+                + txtMaHDBan.Text.Trim() + "',N'" + 
+                cboMaHang.SelectedValue + "'," + 
+                txtSoLuong.Text + "," + 
+                txtDonGiaBan.Text + "," + 
+                txtGiamGia.Text + "," + 
+                txtThanhTien.Text + ")";
             Function.RunSQL(sql);
             LoadDataGridView();
             // Cập nhật lại số lượng của mặt hàng vào bảng tblHang
@@ -194,7 +203,7 @@ namespace KhoHang
             sql = "UPDATE tblHDBan SET TongTien =" + Tongmoi + " WHERE MaHDBan = N'" + txtMaHDBan.Text + "'";
             Function.RunSQL(sql);
             txtTongTien.Text = Tongmoi.ToString();
-            lblBangChu.Text = "Bằng chữ: " + Function.ChuyenSoSangChu(Tongmoi.ToString());
+            lblBangChu.Text = "Bằng chữ: " + Function.ChuyenSoSangChuoi(Double.Parse(Tongmoi.ToString()));
             ResetValuesHang();
             btnXoa.Enabled = true;
             btnThem.Enabled = true;
@@ -236,7 +245,7 @@ namespace KhoHang
                 sql = "UPDATE tblHDBan SET TongTien =" + tongmoi + " WHERE MaHDBan = N'" + txtMaHDBan.Text + "'";
                 Function.RunSQL(sql);
                 txtTongTien.Text = tongmoi.ToString();
-                lblBangChu.Text = "Bằng chữ: " + Function.ChuyenSoSangChu(tongmoi.ToString());
+                lblBangChu.Text = "Bằng chữ: " + Function.ChuyenSoSangChuoi(Double.Parse(tongmoi.ToString()));
                 LoadDataGridView();
             }
         }
@@ -443,7 +452,7 @@ namespace KhoHang
             exRange.Range["A1:F1"].Font.Bold = true;
             exRange.Range["A1:F1"].Font.Italic = true;
             exRange.Range["A1:F1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignRight;
-            exRange.Range["A1:F1"].Value = "Bằng chữ: " + Function.ChuyenSoSangChu(tblThongtinHD.Rows[0][2].ToString());
+            exRange.Range["A1:F1"].Value = "Bằng chữ: " + Function.ChuyenSoSangChuoi(Double.Parse(tblThongtinHD.Rows[0][2].ToString()));
             exRange = exSheet.Cells[4][hang + 17]; //Ô A1 
             exRange.Range["A1:C1"].MergeCells = true;
             exRange.Range["A1:C1"].Font.Italic = true;
@@ -505,7 +514,8 @@ namespace KhoHang
 
         private void btnNgay_Click(object sender, EventArgs e)
         {
-            txtNgayBan.Text = DateTime.Now.ToString();
+            dtpNgayBan.Value = DateTime.Now;
         }
+
     }
 }
